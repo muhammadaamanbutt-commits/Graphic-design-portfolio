@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- Enhanced viewport meta with viewport-fit for notched devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#12060a">
+  <title>Mara Voss — Graphic Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --void: #12060a;
+      --void-2: #1c0a0f;
+      --maroon: #5c0e16;
+      --crimson: #c81e2c;
+      --crimson-2: #e8352f;
+      --ember: #ff6a3d;
+      --parchment: #f3e2b8;
+      --ash: #efe6de;
+      --ash-dim: rgba(239, 230, 222, 0.62);
+      --line: rgba(243, 226, 184, 0.16);
+      --pad: clamp(16px, 4vw, 56px);
+      /* Reduced minimum padding for small screens */
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: clip;
+      /* Prevent horizontal scroll on all devices */
+    }
+
+    /* Fallback for browsers that don't support overflow-x: clip */
+    @supports not (overflow-x: clip) {
+      html {
+        overflow-x: hidden;
+      }
+    }
+
+    body {
+      margin: 0;
+      background: var(--void);
+      color: var(--ash);
+      font-family: 'Space Grotesk', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+      /* Remove tap highlight on mobile */
+      overflow-x: clip;
+      overflow-wrap: break-word;
+      /* Prevent long words from breaking layout */
+    }
+
+    @supports not (overflow-x: clip) {
+      body {
+        overflow-x: hidden;
+      }
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: 'Anton', sans-serif;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* FIX: Ensure images scale properly on all devices */
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    button {
+      font-family: inherit;
+      color: inherit;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--parchment);
+      outline-offset: 3px;
+    }
+
+    :focus:not(:focus-visible) {
+      outline: none;
+    }
+
+    /* ---------- NAV ---------- */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 90;
+      padding: 22px var(--pad);
+      padding-top: max(22px, env(safe-area-inset-top));
+      /* Safe area for notched devices */
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(to bottom, rgba(18, 6, 10, 0.55), transparent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--ash-dim);
+      transition: color .2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--parchment);
+    }
+
+    .nav-logo {
+      font-family: 'Anton', sans-serif;
+      font-size: 20px;
+      letter-spacing: 0.06em;
+      color: var(--parchment);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      min-width: 44px;
+      /* Minimum touch target size */
+      min-height: 44px;
+      /* WCAG compliant */
+      touch-action: manipulation;
+      /* Prevent double-tap zoom */
+    }
+
+    .nav-toggle span {
+      width: 22px;
+      height: 2px;
+      background: var(--parchment);
+      display: block;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      background: var(--void);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      padding: max(1rem, env(safe-area-inset-top)) max(1.25rem, env(safe-area-inset-right)) max(1.25rem, env(safe-area-inset-bottom)) max(1.25rem, env(safe-area-inset-left));
+      /* Safe area padding for all notched devices */
+      overflow: auto;
+      overscroll-behavior: contain;
+      /* Prevent scroll chaining on iOS */
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .3s ease, visibility 0s linear .3s;
+    }
+
+    .mobile-menu.open {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity .3s ease;
+    }
+
+    .mobile-menu a {
+      font-family: 'Anton', sans-serif;
+      font-size: 34px;
+      color: var(--parchment);
+      text-transform: uppercase;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero-spacer {
+      height: 100vh;
+    }
+
+    .hero-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .hero-bg img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 60% top;
+      /* Default: pin to top, shift horizontally */
+      filter: grayscale(1) contrast(1.15) brightness(0.75);
+    }
+
+    /* Ultra-wide screens - shift more to show face */
+    @media (min-width:1400px) {
+      .hero-bg img {
+        object-position: 68% top;
+      }
+    }
+
+    /* Standard desktop - balanced position */
+    @media (min-width:1024px) and (max-width:1399px) {
+      .hero-bg img {
+        object-position: 63% top;
+      }
+    }
+
+    /* Tablets landscape */
+    @media (min-width:768px) and (max-width:1023px) {
+      .hero-bg img {
+        object-position: 60% top;
+      }
+    }
+
+    /* Tablets portrait and large phones */
+    @media (min-width:481px) and (max-width:767px) {
+      .hero-bg img {
+        object-position: 65% top;
+      }
+
+      .hero-headline {
+        font-size: clamp(2.2rem, 8.5vw, 3.5rem);
+        line-height: 0.92;
+      }
+    }
+
+    /* Small phones - maximum shift */
+    @media (max-width:480px) {
+      .hero-bg img {
+        object-position: 70% top;
+      }
+    }
+
+    .hero-bg .tint {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, var(--crimson) 0%, var(--maroon) 45%, var(--void) 100%);
+      mix-blend-mode: color;
+      opacity: 0.95;
+    }
+
+    .hero-bg .halo {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 45% 55% at 62% 38%, rgba(255, 106, 61, 0.55), transparent 65%);
+      mix-blend-mode: screen;
+    }
+
+    .hero-bg .vignette {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--void) 0%, rgba(18, 6, 10, 0.15) 35%, rgba(18, 6, 10, 0.55) 100%),
+        linear-gradient(to right, rgba(18, 6, 10, 0.55) 0%, transparent 45%);
+    }
+
+    .hero-bg .grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.06;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    }
+
+    .hero-content {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 var(--pad) 0;
+      pointer-events: none;
+      overflow: hidden;
+      /* Prevent content from escaping viewport */
+    }
+
+    .hero-content a,
+    .hero-content button {
+      pointer-events: auto;
+    }
+
+    .hero-headline {
+      font-size: clamp(2.2rem, 8.5vw, 9.5rem);
+      line-height: 0.9;
+      color: var(--parchment);
+      margin-bottom: 22px;
+      max-width: 100%;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      hyphens: auto;
+    }
+
+    .hero-headline span {
+      display: block;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: clip;
+    }
+
+    .hero-headline .accent {
+      color: var(--crimson-2);
+      -webkit-text-stroke: 0;
+    }
+
+    .hero-sub {
+      max-width: 540px;
+      font-size: clamp(15px, 1.6vw, 18px);
+      line-height: 1.55;
+      color: var(--ash-dim);
+      margin-bottom: 28px;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--crimson-2);
+      color: var(--void);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      padding: 14px 22px;
+      border-radius: 999px;
+      width: max-content;
+      min-height: 48px;
+      /* WCAG compliant touch target */
+      transition: transform .25s ease, background .25s ease;
+      margin-bottom: 56px;
+      touch-action: manipulation;
+      /* Prevent double-tap zoom */
+    }
+
+    .hero-cta:hover {
+      background: var(--parchment);
+      transform: translateY(-2px);
+    }
+
+    .hero-cta:active {
+      transform: scale(0.97);
+    }
+
+    .hero-cta svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .hero-bottom-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: end;
+      gap: 32px;
+      padding-bottom: clamp(24px, 4vh, 48px);
+      border-top: 1px solid var(--line);
+      padding-top: 22px;
+    }
+
+    .featured {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      max-width: 280px;
+    }
+
+    .featured-swatch {
+      width: 64px;
+      height: 64px;
+      flex: none;
+      border-radius: 8px;
+      background: linear-gradient(145deg, var(--crimson-2), var(--maroon) 70%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .featured-swatch::after {
+      content: "NP";
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Anton', sans-serif;
+      font-size: 20px;
+      color: var(--parchment);
+      opacity: 0.85;
+    }
+
+    .featured-text p {
+      margin: 0;
+    }
+
+    .featured-text .label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--parchment);
+      margin-bottom: 4px;
+    }
+
+    .featured-text .desc {
+      font-size: 12.5px;
+      line-height: 1.45;
+      color: var(--ash-dim);
+    }
+
+    .badge {
+      justify-self: center;
+      width: 108px;
+      height: 108px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .badge svg.ring {
+      position: absolute;
+      inset: 0;
+      animation: spin 14s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .badge-play {
+      width: 44px;
+      height: 44px;
+      /* WCAG minimum touch target */
+      border-radius: 50%;
+      background: var(--parchment);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      touch-action: manipulation;
+      transition: transform .2s ease;
+    }
+
+    .badge-play:hover {
+      transform: scale(1.08);
+    }
+
+    .badge-play:active {
+      transform: scale(0.95);
+    }
+
+    .badge-play svg {
+      width: 14px;
+      height: 14px;
+      margin-left: 2px;
+    }
+
+    .signature {
+      text-align: right;
+    }
+
+    .signature svg {
+      width: 150px;
+      height: 56px;
+      display: block;
+      margin-left: auto;
+    }
+
+    .signature .role {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--parchment);
+      margin-top: 2px;
+    }
+
+    .signature .role-desc {
+      font-size: 12px;
+      color: var(--ash-dim);
+      max-width: 220px;
+      margin-left: auto;
+      line-height: 1.4;
+    }
+
+    .avatars-row {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .avatars {
+      display: flex;
+    }
+
+    .avatars .av {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 2px solid var(--void);
+      margin-left: -8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--void);
+    }
+
+    .avatars .av:first-child {
+      margin-left: 0;
+    }
+
+    .avatars-row .stat {
+      font-size: 12.5px;
+      color: var(--ash-dim);
+    }
+
+    .avatars-row .stat strong {
+      color: var(--parchment);
+    }
+
+    /* ---------- GALLERY ---------- */
+    .gallery {
+      position: relative;
+      z-index: 10;
+      background: var(--void);
+      scroll-snap-type: y proximity;
+    }
+
+    .poster-panel {
+      min-height: 100vh;
+      scroll-snap-align: start;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 6vw;
+      padding: 90px var(--pad) 60px;
+      border-top: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .poster-panel:first-child {
+      border-top: none;
+    }
+
+    .poster-panel.p1 {
+      background: radial-gradient(ellipse 55% 45% at 82% 25%, rgba(255, 106, 61, 0.09), transparent 70%);
+    }
+
+    .poster-panel.p2 {
+      background: radial-gradient(ellipse 55% 45% at 18% 20%, rgba(255, 106, 61, 0.08), transparent 70%);
+    }
+
+    .poster-panel.p3 {
+      background: radial-gradient(ellipse 55% 45% at 82% 80%, rgba(200, 30, 44, 0.10), transparent 70%);
+    }
+
+    .poster-panel.reverse .poster-info {
+      order: 2;
+    }
+
+    .poster-panel.reverse .poster-frame {
+      order: 1;
+    }
+
+    .poster-info {
+      position: relative;
+    }
+
+    .poster-ghost {
+      position: absolute;
+      top: -0.5em;
+      left: -0.05em;
+      z-index: -1;
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(6.5rem, 15vw, 12rem);
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(243, 226, 184, 0.14);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .poster-info .poster-index {
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      color: var(--ash-dim);
+      margin-bottom: 18px;
+    }
+
+    .poster-info .poster-tag {
+      display: inline-block;
+      font-size: 11.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--crimson-2);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .poster-info h3 {
+      font-size: clamp(2.2rem, 4.2vw, 3.6rem);
+      line-height: 0.95;
+      color: var(--parchment);
+      margin-bottom: 18px;
+    }
+
+    .poster-info p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--ash-dim);
+      max-width: 420px;
+    }
+
+    .poster-frame {
+      width: 100%;
+      max-width: 360px;
+      margin: 0 auto;
+      background: var(--void-2);
+      padding: 16px 16px 30px;
+      border-radius: 2px;
+      box-shadow: 0 40px 70px -25px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(243, 226, 184, 0.06);
+      transform: rotate(-3deg);
+      transition: transform .45s cubic-bezier(.2, .8, .2, 1);
+    }
+
+    .poster-panel.reverse .poster-frame {
+      transform: rotate(3deg);
+    }
+
+    /* Hover effect for pointer devices */
+    @media (hover: hover) and (pointer: fine) {
+      .poster-frame:hover {
+        transform: rotate(0deg) translateY(-6px);
+      }
+    }
+
+    /* Auto-straighten on touch devices when in view */
+    @media (hover: none) {
+      .poster-frame.in-view {
+        transform: rotate(0deg) !important;
+      }
+    }
+
+    .poster-frame svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 3/4;
+      border-radius: 1px;
+    }
+
+    .poster-caption {
+      margin: 12px 0 0;
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--ash-dim);
+    }
+
+    /* ---------- FOOTER ---------- */
+    .site-footer {
+      position: relative;
+      z-index: 10;
+      background: var(--void-2);
+      border-top: 1px solid var(--line);
+      padding: 110px var(--pad) max(48px, env(safe-area-inset-bottom));
+      /* Safe area for devices with bottom notch */
+    }
+
+    .footer-heading {
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      color: var(--parchment);
+      max-width: 14ch;
+      margin-bottom: 30px;
+    }
+
+    .footer-email {
+      display: inline-block;
+      font-size: clamp(18px, 2.4vw, 24px);
+      font-weight: 600;
+      color: var(--crimson-2);
+      border-bottom: 1px solid var(--crimson-2);
+      padding-bottom: 4px;
+      margin-bottom: 54px;
+    }
+
+    .footer-email:hover {
+      color: var(--parchment);
+      border-color: var(--parchment);
+    }
+
+    .footer-meta {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 12.5px;
+      color: var(--ash-dim);
+      letter-spacing: 0.03em;
+    }
+
+    /* ---------- RESPONSIVE BREAKPOINTS ---------- */
+    
+    /* Large tablets and small desktops */
+    @media (min-width:768px) and (max-width:1024px) {
+      .hero-headline {
+        font-size: clamp(2.2rem, 7.5vw, 4.5rem);
+        line-height: 0.92;
+      }
+
+      .poster-panel {
+        gap: 4vw;
+        padding: 80px var(--pad) 60px;
+      }
+
+      .poster-frame {
+        max-width: 320px;
+      }
+    }
+    
+    /* Specific fix for 768px tablets */
+    @media (min-width:768px) and (max-width:800px) {
+      .hero-headline {
+        font-size: clamp(2rem, 7vw, 3.8rem);
+        line-height: 0.94;
+      }
+    }
+
+    /* Tablets portrait and below - hide desktop nav */
+    @media (max-width:860px) {
+      .nav-links {
+        display: none;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+    }
+
+    /* Tablets and large phones */
+    @media (max-width:768px) {
+      .hero-headline {
+        font-size: clamp(2.2rem, 8vw, 4rem);
+        line-height: 0.92;
+        margin-bottom: 18px;
+      }
+
+      .hero-sub {
+        font-size: clamp(14px, 3.5vw, 16px);
+        margin-bottom: 24px;
+      }
+
+      .hero-bottom-row {
+        grid-template-columns: 1fr;
+        justify-items: start;
+        gap: 22px;
+      }
+
+      .badge {
+        justify-self: start;
+      }
+
+      .signature {
+        text-align: left;
+      }
+
+      .signature svg {
+        margin-left: 0;
+      }
+
+      .signature .role-desc {
+        margin-left: 0;
+      }
+
+      .poster-panel {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 70px var(--pad) 50px;
+        min-height: auto;
+      }
+
+      .poster-frame {
+        order: -1;
+        max-width: min(300px, 85vw);
+        transform: rotate(-2deg);
+      }
+
+      .poster-panel.reverse .poster-frame {
+        order: -1;
+        transform: rotate(2deg);
+      }
+
+      .poster-panel.reverse .poster-info {
+        order: 0;
+      }
+
+      .poster-ghost {
+        font-size: clamp(4.5rem, 12vw, 6rem);
+      }
+    }
+
+    /* Standard phones */
+    @media (max-width:640px) {
+      .hero-headline {
+        font-size: clamp(2rem, 7.5vw, 3rem);
+        line-height: 0.94;
+        margin-bottom: 16px;
+      }
+
+      .hero-sub {
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .featured-text .desc {
+        font-size: 11.5px;
+      }
+
+      .avatars-row {
+        flex-wrap: wrap;
+      }
+    }
+
+    /* Small phones */
+    @media (max-width:480px) {
+      .hero-headline {
+        font-size: clamp(1.75rem, 7vw, 2.5rem);
+        line-height: 0.96;
+        margin-bottom: 14px;
+        letter-spacing: 0;
+      }
+
+      .hero-sub {
+        font-size: 13.5px;
+        line-height: 1.48;
+        margin-bottom: 22px;
+      }
+
+      .hero-cta {
+        font-size: 13px;
+        padding: 12px 18px;
+        min-height: 44px;
+      }
+
+      .badge {
+        width: 90px;
+        height: 90px;
+      }
+
+      .badge-play {
+        width: 44px;
+        height: 44px;
+        /* Maintain touch target */
+      }
+
+      .badge-play svg {
+        width: 12px;
+        height: 12px;
+      }
+
+      .poster-frame {
+        max-width: min(260px, 88vw);
+        padding: 12px 12px 24px;
+      }
+
+      .poster-info h3 {
+        font-size: clamp(1.8rem, 8vw, 2.4rem);
+      }
+
+      .poster-info p {
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      .footer-heading {
+        font-size: clamp(1.6rem, 7vw, 2.2rem);
+      }
+
+      .footer-email {
+        font-size: clamp(16px, 4vw, 20px);
+      }
+    }
+
+    /* Extra small phones */
+    @media (max-width:375px) {
+      .hero-headline {
+        font-size: clamp(1.5rem, 6.5vw, 2.2rem);
+        line-height: 0.98;
+        margin-bottom: 12px;
+      }
+
+      .nav {
+        padding: 18px max(16px, env(safe-area-inset-left)) 18px max(16px, env(safe-area-inset-right));
+      }
+
+      .hero-content {
+        padding: 0 max(16px, env(safe-area-inset-left)) 0 max(16px, env(safe-area-inset-right));
+      }
+
+      .poster-panel {
+        padding: 60px max(16px, env(safe-area-inset-left)) 40px max(16px, env(safe-area-inset-right));
+      }
+
+      .poster-frame {
+        max-width: min(240px, 86vw);
+      }
+
+      .site-footer {
+        padding: 80px max(16px, env(safe-area-inset-left)) max(40px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-right));
+      }
+
+      .featured {
+        max-width: 100%;
+      }
+    }
+
+    /* Very small devices (320px) */
+    @media (max-width:320px) {
+      .hero-headline {
+        font-size: clamp(1.3rem, 6vw, 1.8rem);
+        line-height: 1;
+        margin-bottom: 10px;
+      }
+
+      .hero-sub {
+        font-size: 12.5px;
+      }
+
+      .nav-logo {
+        font-size: 18px;
+      }
+
+      .poster-frame {
+        max-width: min(220px, 90vw);
+      }
+    }
+
+    /* Short landscape screens - reduce vertical spacing */
+    @media (max-height:500px) and (orientation: landscape) {
+      .hero-bottom-row {
+        padding-bottom: 20px;
+        padding-top: 16px;
+      }
+
+      .hero-cta {
+        margin-bottom: 32px;
+      }
+
+      .poster-panel {
+        padding-top: 60px;
+        padding-bottom: 40px;
+        min-height: auto;
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .badge svg.ring {
+        animation: none;
+      }
+
+      * {
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <header class="nav">
+    <nav class="nav-links">
+      <a href="#work">Work</a>
+    </nav>
+    <div class="nav-logo">VOSS</div>
+    <div class="nav-right">
+      <nav class="nav-links">
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#work" class="mm-link">Work</a>
+    <a href="#contact" class="mm-link">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero-bg">
+    <img src="https://images.pexels.com/photos/15645939/pexels-photo-15645939.jpeg?auto=compress&cs=tinysrgb&w=1600"
+      alt="">
+    <div class="tint"></div>
+    <div class="halo"></div>
+    <div class="vignette"></div>
+    <div class="grain"></div>
+  </div>
+
+  <div class="hero-content">
+    <h1 class="hero-headline"><span id="headlineLine1">Mara</span><span id="headlineLine2" class="accent">Voss</span>
+    </h1>
+    <p class="hero-sub">Bold visual identities, editorial layouts, and packaging systems built to make brands impossible
+      to scroll past.</p>
+    <a href="#work" class="hero-cta">
+      View The Work
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M7 17L17 7M17 7H9M17 7V15" />
+      </svg>
+    </a>
+
+    <div class="hero-bottom-row">
+      <div class="featured">
+        <div class="featured-swatch"></div>
+        <div class="featured-text">
+          <p class="label">Selected Work</p>
+          <p class="desc">Identity, editorial, and packaging projects for independent labels and growing brands.</p>
+        </div>
+      </div>
+
+      <div class="badge">
+        <svg class="ring" viewBox="0 0 120 120">
+          <defs>
+            <path id="ringPath" d="M60,60 m-50,0 a50,50 0 1,1 100,0 a50,50 0 1,1 -100,0" />
+          </defs>
+          <text font-family="Space Grotesk" font-size="9" letter-spacing="2" fill="#f3e2b8">
+            <textPath href="#ringPath">VIEW REEL &#8226; VIEW REEL &#8226; VIEW REEL &#8226; </textPath>
+          </text>
+        </svg>
+        <button class="badge-play" aria-label="Scroll to reel"
+          onclick="document.getElementById('work').scrollIntoView({behavior:'smooth'})">
+          <svg viewBox="0 0 24 24" fill="#12060a">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="signature">
+        <svg viewBox="0 0 220 80" fill="none" stroke="#f3e2b8" stroke-width="3" stroke-linecap="round">
+          <path d="M10,55 C 28,15 45,85 62,42 C 80,-2 98,72 116,32 C 132,-2 148,60 166,26 C 178,4 190,18 208,10" />
+        </svg>
+        <p class="role">Graphic Designer</p>
+        <p class="role-desc">Identity systems and print-to-digital campaigns for emerging brands.</p>
+      </div>
+
+      <div class="avatars-row">
+        <div class="avatars">
+          <div class="av" style="background:var(--crimson-2)">AK</div>
+          <div class="av" style="background:var(--ember)">RL</div>
+          <div class="av" style="background:var(--parchment)">TN</div>
+        </div>
+        <p class="stat"><strong>150+</strong> projects delivered</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-spacer"></div>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="work">
+
+    <article class="poster-panel p1">
+      <div class="poster-info">
+        <span class="poster-ghost" aria-hidden="true">01</span>
+        <p class="poster-index">01 / 03</p>
+        <span class="poster-tag">Event Branding</span>
+        <h3>NightPulse</h3>
+        <p>A full identity system for an underground electronic festival — poster series, wayfinding, and wristband
+          graphics built around a single recurring sun motif.</p>
+      </div>
+      <div class="poster-frame">
+        <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" role="img"
+          aria-label="NightPulse festival poster with a rising sun graphic and bold typography">
+          <defs>
+            <linearGradient id="np-bg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#5c0e16" />
+              <stop offset="70%" stop-color="#12060a" />
+            </linearGradient>
+            <radialGradient id="np-sun" cx="50%" cy="35%" r="55%">
+              <stop offset="0%" stop-color="#ff6a3d" />
+              <stop offset="55%" stop-color="#e8352f" />
+              <stop offset="100%" stop-color="#e8352f" stop-opacity="0" />
+            </radialGradient>
+            <pattern id="np-dots" width="8" height="8" patternUnits="userSpaceOnUse">
+              <circle cx="1.4" cy="1.4" r="1.2" fill="#f3e2b8" opacity="0.55" />
+            </pattern>
+          </defs>
+          <rect width="300" height="400" fill="url(#np-bg)" />
+          <circle cx="185" cy="140" r="120" fill="url(#np-sun)" />
+          <clipPath id="np-clip">
+            <rect x="0" y="0" width="300" height="400" />
+          </clipPath>
+          <g clip-path="url(#np-clip)">
+            <rect x="60" y="150" width="240" height="6" fill="#12060a" />
+            <rect x="60" y="164" width="240" height="8" fill="#12060a" />
+            <rect x="60" y="180" width="240" height="10" fill="#12060a" />
+            <rect x="60" y="198" width="240" height="13" fill="#12060a" />
+            <rect x="60" y="219" width="240" height="18" fill="#12060a" />
+          </g>
+          <rect x="0" y="332" width="86" height="68" fill="url(#np-dots)" />
+          <g transform="rotate(-4 150 300)">
+            <text x="24" y="295" font-family="Anton" font-size="54" fill="#f3e2b8">NIGHT</text>
+            <text x="24" y="345" font-family="Anton" font-size="54" fill="#f3e2b8">PULSE</text>
+          </g>
+          <line x1="24" y1="366" x2="276" y2="366" stroke="#f3e2b8" stroke-opacity="0.25" />
+          <text x="24" y="384" font-family="Space Grotesk" font-size="10" letter-spacing="2" fill="#efe6de"
+            opacity="0.75">VOL. IV — UNDERGROUND SERIES</text>
+        </svg>
+        <p class="poster-caption">NightPulse — festival identity, 2024</p>
+      </div>
+    </article>
+
+    <article class="poster-panel p2 reverse">
+      <div class="poster-info">
+        <span class="poster-ghost" aria-hidden="true">02</span>
+        <p class="poster-index">02 / 03</p>
+        <span class="poster-tag">Editorial Design</span>
+        <h3>Ember &amp; Ash</h3>
+        <p>Cover system and grid for a quarterly print journal on craft and material culture — one typographic idea, six
+          issues, zero repeats.</p>
+      </div>
+      <div class="poster-frame">
+        <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" role="img"
+          aria-label="Ember and Ash magazine cover with a large cropped headline reading HEAT">
+          <defs>
+            <radialGradient id="ea-glow" cx="82%" cy="8%" r="55%">
+              <stop offset="0%" stop-color="#ff6a3d" stop-opacity="0.55" />
+              <stop offset="100%" stop-color="#ff6a3d" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+          <rect width="300" height="400" fill="#12060a" />
+          <rect width="300" height="400" fill="url(#ea-glow)" />
+          <text x="24" y="40" font-family="Space Grotesk" font-size="12" letter-spacing="3" fill="#efe6de">EMBER &amp;
+            ASH</text>
+          <text x="276" y="40" text-anchor="end" font-family="Space Grotesk" font-size="12" letter-spacing="2"
+            fill="#efe6de" opacity="0.7">N°06</text>
+          <line x1="24" y1="52" x2="276" y2="52" stroke="#f3e2b8" stroke-opacity="0.2" />
+          <text x="14" y="232" font-family="Anton" font-size="108" fill="#f3e2b8">HEAT</text>
+          <line x1="24" y1="318" x2="150" y2="318" stroke="#f3e2b8" stroke-opacity="0.2" />
+          <text x="24" y="334" font-family="Space Grotesk" font-size="10.5" fill="#efe6de" opacity="0.85">The slow
+            return of hand-thrown clay</text>
+          <line x1="24" y1="352" x2="150" y2="352" stroke="#f3e2b8" stroke-opacity="0.2" />
+          <text x="24" y="368" font-family="Space Grotesk" font-size="10.5" fill="#efe6de" opacity="0.85">Notes from a
+            dying print shop</text>
+          <g transform="translate(240,358)" opacity="0.8" fill="#efe6de">
+            <rect x="0" y="0" width="2" height="28" />
+            <rect x="4" y="0" width="1" height="28" />
+            <rect x="7" y="0" width="3" height="28" />
+            <rect x="12" y="0" width="1" height="28" />
+            <rect x="15" y="0" width="2" height="28" />
+            <rect x="19" y="0" width="1" height="28" />
+            <rect x="22" y="0" width="3" height="28" />
+            <rect x="27" y="0" width="1" height="28" />
+          </g>
+        </svg>
+        <p class="poster-caption">Ember &amp; Ash — issue no. 06, 2025</p>
+      </div>
+    </article>
+
+    <article class="poster-panel p3">
+      <div class="poster-info">
+        <span class="poster-ghost" aria-hidden="true">03</span>
+        <p class="poster-index">03 / 03</p>
+        <span class="poster-tag">Packaging Design</span>
+        <h3>Ferro Coffee</h3>
+        <p>Packaging and wordmark for a small-batch roaster — a single bold die-cut label built to survive a shelf full
+          of louder neighbors.</p>
+      </div>
+      <div class="poster-frame">
+        <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" role="img"
+          aria-label="Ferro Coffee packaging bag with a cream label reading FERRO, single origin roast">
+          <defs>
+            <linearGradient id="fc-bg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#e8352f" />
+              <stop offset="55%" stop-color="#c81e2c" />
+              <stop offset="100%" stop-color="#5c0e16" />
+            </linearGradient>
+          </defs>
+          <rect width="300" height="400" fill="url(#fc-bg)" />
+          <text x="24" y="34" font-family="Space Grotesk" font-size="11" letter-spacing="2.5" font-weight="700"
+            fill="#12060a">SMALL BATCH</text>
+          <ellipse cx="150" cy="352" rx="70" ry="14" fill="#12060a" opacity="0.22" />
+          <g transform="rotate(-3 150 210)">
+            <path d="M96,80 L96,320 Q96,332 108,332 L192,332 Q204,332 204,320 L204,80 Z" fill="#12060a"
+              opacity="0.92" />
+            <path d="M104,80 L96,52 Q92,40 104,40 L196,40 Q208,40 204,52 L196,80 Z" fill="#12060a" />
+            <line x1="96" y1="80" x2="204" y2="80" stroke="#e8352f" stroke-width="2" stroke-dasharray="3 3" />
+            <rect x="112" y="150" width="76" height="96" rx="4" fill="#f3e2b8" />
+            <text x="150" y="192" text-anchor="middle" font-family="Anton" font-size="24" fill="#12060a">FERRO</text>
+            <line x1="122" y1="205" x2="178" y2="205" stroke="#12060a" stroke-opacity="0.4" />
+            <text x="150" y="220" text-anchor="middle" font-family="Space Grotesk" font-size="7" letter-spacing="1.5"
+              fill="#12060a" opacity="0.8">SINGLE ORIGIN ROAST</text>
+            <text x="150" y="234" text-anchor="middle" font-family="Space Grotesk" font-size="7" fill="#12060a"
+              opacity="0.6">250G NET</text>
+          </g>
+        </svg>
+        <p class="poster-caption">Ferro Coffee — packaging system, 2025</p>
+      </div>
+    </article>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" id="contact">
+    <h2 class="footer-heading">Got a brand that needs a voice?</h2>
+    <a href="mailto:hello@maravoss.studio" class="footer-email">hello@maravoss.studio</a>
+    <div class="footer-meta">
+      <span>&copy; 2026 Mara Voss</span>
+      <span>Based remote — worldwide</span>
+    </div>
+  </footer>
+
+  <script>
+    // ---------- HERO HEADLINE SCRAMBLE (runs once per session, in place) ----------
+    (function () {
+      var line1 = document.getElementById('headlineLine1');
+      var line2 = document.getElementById('headlineLine2');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Site opens immediately either way — this only affects what
+      // the headline text does while the page is already visible.
+      if (sessionStorage.getItem('vossIntroPlayed') || reduce) {
+        sessionStorage.setItem('vossIntroPlayed', '1');
+        return; // headline already shows "Mara" / "Voss" from the markup
+      }
+      sessionStorage.setItem('vossIntroPlayed', '1');
+
+      var words1 = ['Ideate', 'Compose', 'Contrast', 'Refine', 'Craft', 'Mara'];
+      var words2 = ['Design', 'Systems', 'Visuals', 'Impact', 'Story', 'Voss'];
+      var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&$';
+
+      function scrambleTo(el, target, duration) {
+        return new Promise(function (resolve) {
+          var frame = 30; // ms per tick
+          var ticks = Math.max(1, Math.floor(duration / frame));
+          var count = 0;
+          var timer = setInterval(function () {
+            count++;
+            var reveal = Math.floor((count / ticks) * target.length);
+            var out = '';
+            for (var i = 0; i < target.length; i++) {
+              if (target[i] === ' ') { out += ' '; continue; }
+              out += (i < reveal) ? target[i] : chars[Math.floor(Math.random() * chars.length)];
+            }
+            el.textContent = out;
+            if (count >= ticks) {
+              clearInterval(timer);
+              el.textContent = target;
+              resolve();
+            }
+          }, frame);
+        });
+      }
+
+      function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+      (async function run() {
+        for (var i = 0; i < words1.length; i++) {
+          var isLast = i === words1.length - 1;
+          var dur = isLast ? 420 : 260;
+          await Promise.all([
+            scrambleTo(line1, words1[i], dur),
+            scrambleTo(line2, words2[i], dur)
+          ]);
+          if (!isLast) await wait(90);
+        }
+      })();
+    })();
+
+    // ---------- MOBILE NAV ----------
+    (function () {
+      var toggle = document.getElementById('navToggle');
+      var menu = document.getElementById('mobileMenu');
+      toggle.addEventListener('click', function () {
+        var open = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      menu.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () { menu.classList.remove('open'); });
+      });
+    })();
+
+    // ---------- POSTER AUTO-STRAIGHTEN (touch devices only) ----------
+    (function () {
+      // Only run on touch devices (no hover capability)
+      var isTouchDevice = window.matchMedia('(hover: none)').matches;
+      if (!isTouchDevice) return;
+
+      var frames = document.querySelectorAll('.poster-frame');
+      if (!frames.length) return;
+
+      // Use IntersectionObserver for efficient viewport detection
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+            entry.target.classList.add('in-view');
+          } else {
+            entry.target.classList.remove('in-view');
+          }
+        });
+      }, {
+        threshold: [0, 0.3, 0.5, 1],
+        rootMargin: '-10% 0px'
+      });
+
+      frames.forEach(function (frame) { observer.observe(frame); });
+    })();
+  </script>
+
+</body>
+
+</html>
